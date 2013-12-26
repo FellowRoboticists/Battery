@@ -1,6 +1,7 @@
-// Battery library
-// copyright Dave Sieh, 2013
-// This code is public domain, enjoy!
+// Battery Arduino library
+//
+// Copyright (c) 2013 Dave Sieh
+// See LICENSE.txt for details.
 
 #include <Arduino.h>
 #include "Battery.h"

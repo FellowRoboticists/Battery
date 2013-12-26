@@ -1,6 +1,7 @@
 // Battery library
-// copyright Dave Sieh, 2013
-// This code is public domain, enjoy!
+//
+// Copyright (c) 2013 Dave Sieh
+// See LICENSE.txt for details.
 
 #ifndef _Battery_h_
 #define _Battery_h_
