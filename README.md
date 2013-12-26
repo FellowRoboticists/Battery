@@ -7,5 +7,6 @@ of the batteries.
 Copyright
 =========
 Copyright (c) 2013 Dave Sieh
+
 See LICENSE.txt for details.
 
