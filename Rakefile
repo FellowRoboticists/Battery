@@ -10,32 +10,22 @@ $: << File.dirname(File.dirname(__FILE__))
 
 # Bring in the task support
 require 'arduino-tasks/tasks'
+include ArduinoTasks
 
-LIB_DIR = 'lib'
 BASE_DIR = '..'
 
-ADA_LIB = 'Adafruit-Motor-Shield-library'
-AFMOTOR_LIB = File.join(LIB_DIR, "AFMotor")
+env = ArduinoEnvironment.new BASE_DIR
 
-create_library_clone_task ADA_LIB, File.join(BASE_DIR, ADA_LIB), 'robot_kit'
+LIBS = [
+  library('IrSensors'),
+  library('LEDBlinker'),
+  library('Look'),
+  library('Move'),
+  library('PingSensor'),
+  library('RobotMotor'),
+  library('SoftServo'),
+  library('AFMotor', 'Adafruit-Motor-Shield-library', 'robot_kit')
+]
 
-directory AFMOTOR_LIB => File.join(BASE_DIR, ADA_LIB) do
-  cp_r File.join(BASE_DIR, ADA_LIB), LIB_DIR
-  mv File.join(LIB_DIR, ADA_LIB), AFMOTOR_LIB
-end
-
-LIBS = %w{ IrSensors LEDBlinker Look Move PingSensor RobotMotor SoftServo }
-
-LIBS.each do | lib |
-  lib_dir = File.join(BASE_DIR, lib)
-  create_library_clone_task lib, lib_dir
-  directory File.join(LIB_DIR, lib) => lib_dir do
-    cp_r File.join(BASE_DIR, lib, LIB_DIR, lib), LIB_DIR
-  end
-
-  task :default => File.join(LIB_DIR, lib)
-end
-
-task :default => AFMOTOR_LIB
-
+create_all_library_tasks env, LIBS, :default
 
