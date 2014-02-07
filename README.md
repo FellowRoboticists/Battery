@@ -7,7 +7,7 @@ of the batteries.
 Building/Testing
 ================
 
-Preparartion:
+Preparation:
 
 1. Determine the directory in which you will place the Battery project
 2. Clone the https://github.com/FellowRoboticists/arduino-tasks project. This provides the necessary ruby tasks use by the rake command.
