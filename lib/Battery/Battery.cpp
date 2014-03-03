@@ -1,12 +1,13 @@
 // Battery Arduino library
 //
-// Copyright (c) 2013 Dave Sieh
+// Copyright (c) 2013,2014 Dave Sieh
 // See LICENSE.txt for details.
 
 #include <Arduino.h>
 #include "Battery.h"
 #include "LEDBlinker.h"
 #include "Move.h"
+#include "pspc_support.h"
 
 Battery::Battery(int monitorPin, int chargerPin, LEDBlinker *ledBlinker) {
   pin = monitorPin;
@@ -22,7 +23,7 @@ void Battery::begin() {
 
 void Battery::check(Move *mover) {
   int mv = batteryMv(); // Get battery level in millivolts
-  Serial.print("mv = ");
+  Serial.print(P("mv = "));
   Serial.print(mv);
   if (chargePin >= 0 && digitalRead(chargePin) == HIGH) {
     // Got here if charger detect is enabled and charger is plugged in
@@ -32,7 +33,7 @@ void Battery::check(Move *mover) {
 	mover->stop();
       }
       mv = batteryMv();
-      Serial.print(", charger detected, voltage = ");
+      Serial.print(P(", charger detected, voltage = "));
       int percent = map(mv, batteryCritical, batteryFull, 50, 100);
       percent = constrain(percent, 0, 100);
       Serial.println(percent);
@@ -40,7 +41,7 @@ void Battery::check(Move *mover) {
     }
   } else {
     if (mv < batteryCritical) {
-      Serial.println("Critical");
+      Serial.println(P("Critical"));
       if (mover) {
 	// Shut down the robot
 	mover->stop();

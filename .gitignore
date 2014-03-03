@@ -8,4 +8,5 @@ lib/Move
 lib/PingSensor
 lib/RobotMotor
 lib/SoftServo
+lib/pspc_support
 *.swp

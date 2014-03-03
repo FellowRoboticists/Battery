@@ -2,7 +2,7 @@
 #
 # Battery Arduino library
 #
-# Copyright (c) 2013 Dave Sieh
+# Copyright (c) 2013,2014 Dave Sieh
 # See LICENSE.txt for details.
 #
 # Put the parent directory on the Ruby Load path
@@ -24,6 +24,7 @@ LIBS = [
   library('PingSensor'),
   library('RobotMotor'),
   library('SoftServo'),
+  library('pspc_support'),
   library('AFMotor', 'Adafruit-Motor-Shield-library', 'robot_kit')
 ]
 
