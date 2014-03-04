@@ -23,8 +23,10 @@ void Battery::begin() {
 
 void Battery::check(Move *mover) {
   int mv = batteryMv(); // Get battery level in millivolts
+#ifdef BATTERY_DEBUG
   Serial.print(P("mv = "));
   Serial.print(mv);
+#endif
   if (chargePin >= 0 && digitalRead(chargePin) == HIGH) {
     // Got here if charger detect is enabled and charger is plugged in
     while (digitalRead(chargePin) == HIGH) {
@@ -33,18 +35,24 @@ void Battery::check(Move *mover) {
 	mover->stop();
       }
       mv = batteryMv();
+#ifdef BATTERY_DEBUG
       Serial.print(P(", charger detected, voltage = "));
+#endif
       int percent = map(mv, batteryCritical, batteryFull, 50, 100);
       percent = constrain(percent, 0, 100);
+#ifdef BATTERY_DEBUG
       Serial.println(percent);
+#endif
       led->flash(percent);
     }
   } else {
     if (mv < batteryCritical) {
+#ifdef BATTERY_DEBUG
       Serial.println(P("Critical"));
+#endif
       if (mover) {
-	// Shut down the robot
-	mover->stop();
+        // Shut down the robot
+        mover->stop();
       }
       while (1) {
         led->flashCritical();
@@ -60,7 +68,9 @@ void Battery::check(Move *mover) {
     }
   }
   delay(1000);
+#ifdef BATTERY_DEBUG
   Serial.println();
+#endif
 }
 
 int Battery::batteryMv() {
